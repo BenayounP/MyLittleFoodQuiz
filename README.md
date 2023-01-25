@@ -1,2 +1,2 @@
 # MyLittleFoodQuiz
-A tiny quizz about food (with JSON)
+A tiny quiz about food (with JSON)
