@@ -1,7 +1,7 @@
 package eu.benayoun.mylittlefoodquiz.data.source.network
 
-import eu.benayoun.mylittlefoodquiz.data.model.API.APIResponse
+import eu.benayoun.mylittlefoodquiz.data.model.API.NetworkResponse
 
 interface FoodQuestionsNetworkSource {
-    suspend fun getFoodQuestionsList(): APIResponse
+    suspend fun getRawFoodQuestionsList(): NetworkResponse
 }

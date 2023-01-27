@@ -1,7 +1,7 @@
 package eu.benayoun.mylittlefoodquiz.data.model.business
 
 data class FoodQuestion(
-    val choices: List<Choice>,
+    var choices: List<Choice>,
     val id: Int,
     val multiple: Boolean,
     val name: String,

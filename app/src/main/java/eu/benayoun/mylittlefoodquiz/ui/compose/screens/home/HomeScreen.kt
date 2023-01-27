@@ -6,6 +6,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -20,7 +21,8 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
         color = MaterialTheme.colorScheme.background
     ) {
         viewModel.ObserveLifecycle(LocalLifecycleOwner.current.lifecycle)
-        Greeting("Android")
+        val list = viewModel.questionListState.collectAsState().value
+        Text(text = "List Size ${list.size}!")
     }
 }
 //used to observe lifecycle like onResume and so on
@@ -33,9 +35,4 @@ fun <LO : LifecycleObserver> LO.ObserveLifecycle(lifecycle: Lifecycle) {
             lifecycle.removeObserver(this@ObserveLifecycle)
         }
     }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
 }
