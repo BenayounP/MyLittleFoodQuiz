@@ -4,7 +4,7 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import eu.benayoun.mylittlefoodquiz.data.model.API.NetworkResponse
-import eu.benayoun.mylittlefoodquiz.data.model.business.FoodQuestion
+import eu.benayoun.mylittlefoodquiz.data.model.business.questions.FoodQuestion
 import java.io.IOException
 import java.io.InputStream
 import java.lang.reflect.Type

@@ -1,6 +1,6 @@
 package eu.benayoun.mylittlefoodquiz.data.repository
 
-import eu.benayoun.mylittlefoodquiz.data.model.business.FoodQuestion
+import eu.benayoun.mylittlefoodquiz.data.model.business.questions.FoodQuestion
 import kotlinx.coroutines.flow.Flow
 
 interface QuestionsRepository {

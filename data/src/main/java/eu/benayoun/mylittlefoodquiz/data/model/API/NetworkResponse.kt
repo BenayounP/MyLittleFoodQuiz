@@ -1,6 +1,6 @@
 package eu.benayoun.mylittlefoodquiz.data.model.API
 
-import eu.benayoun.mylittlefoodquiz.data.model.business.FoodQuestion
+import eu.benayoun.mylittlefoodquiz.data.model.business.questions.FoodQuestion
 
 sealed class NetworkResponse {
     class Success(val foodQuestionsList: List<FoodQuestion>) : NetworkResponse()

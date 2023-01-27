@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.benayoun.mylittlefoodquiz.data.di.QuestionsRepositoryProvider
-import eu.benayoun.mylittlefoodquiz.data.model.business.FoodQuestion
+import eu.benayoun.mylittlefoodquiz.data.model.business.questions.FoodQuestion
 import eu.benayoun.mylittlefoodquiz.data.repository.QuestionsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

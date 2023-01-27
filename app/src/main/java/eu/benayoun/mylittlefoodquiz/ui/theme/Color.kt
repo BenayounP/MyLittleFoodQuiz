@@ -1,8 +1,23 @@
 package eu.benayoun.mylittlefoodquiz.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+data class BackgroundAndContentColor(val background: Color, val content: Color)
+
+class ComposeColors {
+    companion object {
+        @Composable
+        fun getColor(light: Color, dark: Color): Color {
+            if (isDarkTheme()) {
+                return dark
+            } else {
+                return light
+            }
+        }
+
+        @Composable
+        fun isDarkTheme() = isSystemInDarkTheme()
+    }
+}

@@ -1,7 +1,7 @@
 package eu.benayoun.mylittlefoodquiz.data.repository
 
 import eu.benayoun.mylittlefoodquiz.data.model.API.NetworkResponse
-import eu.benayoun.mylittlefoodquiz.data.model.business.FoodQuestion
+import eu.benayoun.mylittlefoodquiz.data.model.business.questions.FoodQuestion
 import eu.benayoun.mylittlefoodquiz.data.source.network.FoodQuestionsNetworkSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope

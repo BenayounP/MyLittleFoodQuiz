@@ -1,4 +1,4 @@
-package eu.benayoun.mylittlefoodquiz.data.model.business
+package eu.benayoun.mylittlefoodquiz.data.model.business.questions
 
 data class Choice(
     val description: String,

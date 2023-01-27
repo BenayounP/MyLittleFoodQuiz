@@ -2,26 +2,25 @@ package eu.benayoun.mylittlefoodquiz.ui.theme
 
 import android.app.Activity
 import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
-
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
+import com.pierrebenayoun.activityreport.ui.theme.*
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple200,
-    tertiary = Purple700,
-    secondary = Teal200
+    primary = PeterRiver2,
+    secondary = WetAsphalt,
+    tertiary = Turquoise2
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple500,
-    tertiary = Purple700,
-    secondary = Teal200
+    primary = WetAsphalt,
+    secondary = WetAsphalt2,
+    tertiary = Turquoise1
 
     /* Other default colors to override
     background = Color.White,
@@ -35,7 +34,7 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun MyLittleFoodQuizTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = ComposeColors.isDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
