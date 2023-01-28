@@ -11,16 +11,19 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
 import com.pierrebenayoun.activityreport.ui.theme.*
 
+
 private val DarkColorScheme = darkColorScheme(
-    primary = PeterRiver2,
-    secondary = WetAsphalt,
-    tertiary = Turquoise2
+    primary = Grey800,
+    secondary = Grey900,
+    tertiary = Grey800,
+    surface = Grey300,
+    onSurface = Blue700
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = WetAsphalt,
-    secondary = WetAsphalt2,
-    tertiary = Turquoise1
+    primary = Blue900,
+    secondary = Blue700,
+    tertiary = Grey300,
 
     /* Other default colors to override
     background = Color.White,

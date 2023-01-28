@@ -4,6 +4,9 @@ import androidx.compose.ui.graphics.Color
 
 // google's material design colours from http://www.google.com/design/spec/style/color.html#color-ui-color-palette
 
+// transparent
+val transparent = Color(0x00FFFFFF)
+
 //reds
 val Red50 = Color(0xFFFFEBEE)
 val Red100 = Color(0xFFFFCDD2)
