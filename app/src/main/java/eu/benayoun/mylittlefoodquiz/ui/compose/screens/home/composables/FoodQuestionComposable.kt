@@ -8,23 +8,28 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.pierrebenayoun.activityreport.ui.theme.Blue500
-import com.pierrebenayoun.activityreport.ui.theme.Blue700
+import com.pierrebenayoun.activityreport.ui.theme.Blue600
+import com.pierrebenayoun.activityreport.ui.theme.Blue800
 import com.pierrebenayoun.activityreport.ui.theme.Blue900
-import eu.benayoun.mylittlefoodquiz.data.model.business.questions.FoodQuestion
+import eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.model.SelectableFoodQuestion
 import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeColors
 import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeDimensions.padding1
 import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeDimensions.padding2
 import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeDimensions.padding3
 
 @Composable
-fun FoodQuestionComposable(foodQuestion: FoodQuestion, modifier: Modifier = Modifier) {
+fun FoodQuestionComposable(
+    modifier: Modifier = Modifier,
+    selectableFoodQuestion: SelectableFoodQuestion
+) {
     @Composable
-    fun backgroundGradientStart() = ComposeColors.getColor(light = Blue500, dark = Blue700)
+    fun backgroundGradientStart() = ComposeColors.getColor(light = Blue500, dark = Blue600)
 
     @Composable
-    fun backgroundGradientEnd() = ComposeColors.getColor(light = Blue700, dark = Blue900)
+    fun backgroundGradientEnd() = ComposeColors.getColor(light = Blue800, dark = Blue900)
 
     val backgroundBrush = Brush.linearGradient(
         colors = listOf(backgroundGradientStart(), backgroundGradientEnd())
@@ -40,7 +45,7 @@ fun FoodQuestionComposable(foodQuestion: FoodQuestion, modifier: Modifier = Modi
             .fillMaxWidth()
     ) {
         Text(
-            text = foodQuestion.name,
+            text = selectableFoodQuestion.name,
             modifier = Modifier
                 .padding(horizontal = padding3)
                 .fillMaxWidth(),
@@ -49,20 +54,32 @@ fun FoodQuestionComposable(foodQuestion: FoodQuestion, modifier: Modifier = Modi
             textAlign = TextAlign.Center
         )
         Text(
-            text = foodQuestion.question,
+            text = selectableFoodQuestion.question,
             modifier = Modifier
                 .padding(padding3)
                 .fillMaxWidth(),
-            style = MaterialTheme.typography.titleSmall,
+            style = MaterialTheme.typography.titleMedium,
             color = ComposeColors.textOnDarkBackground(),
             textAlign = TextAlign.Center
         )
+        if (selectableFoodQuestion.multiple) {
+            Text(
+                text = "Plusieurs réponses possibles !",
+                modifier = Modifier
+                    .padding(padding3)
+                    .fillMaxWidth(),
+                style = MaterialTheme.typography.titleSmall,
+                color = ComposeColors.textOnDarkBackground(),
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold
+            )
+        }
 
-        foodQuestion.choices.forEachIndexed { index, choice ->
-            if (index > 0) Spacer(modifier = Modifier.height(padding2))
+        selectableFoodQuestion.choices.forEachIndexed { choiceIndex, choice ->
+            if (choiceIndex > 0) Spacer(modifier = Modifier.height(padding2))
             FoodQuestionChoiceComposable(
-                foodChoice = choice,
-                modifier = Modifier.padding(horizontal = padding1)
+                modifier = Modifier.padding(horizontal = padding1),
+                selectableFoodChoice = choice, selectableFoodQuestion::onSelection
             )
         }
     }

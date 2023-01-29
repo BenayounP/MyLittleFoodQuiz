@@ -13,7 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import com.pierrebenayoun.activityreport.ui.theme.*
-import eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.composables.QuestionsListComposable
+import eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.composables.FoodQuestionsListComposable
 import eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.model.HomeViewModel
 import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeColors
 
@@ -23,7 +23,7 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltVie
     fun backgroundGradientStart() = ComposeColors.getColor(light = Grey100, dark = Grey900)
 
     @Composable
-    fun backgroundGradientEnd() = ComposeColors.getColor(light = Grey300, dark = Grey800)
+    fun backgroundGradientEnd() = ComposeColors.getColor(light = Grey400, dark = Grey500)
 
     val backgroundBrush = Brush.linearGradient(
         colors = listOf(backgroundGradientStart(), backgroundGradientEnd())
@@ -36,7 +36,7 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltVie
     ) {
         viewModel.ObserveLifecycle(LocalLifecycleOwner.current.lifecycle)
         val foodQuestionList = viewModel.questionListState.collectAsState().value
-        QuestionsListComposable(foodQuestionsList = foodQuestionList)
+        FoodQuestionsListComposable(foodQuestionsList = foodQuestionList)
     }
 }
 //used to observe lifecycle like onResume and so on

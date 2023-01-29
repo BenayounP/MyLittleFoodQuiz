@@ -3,6 +3,8 @@ package eu.benayoun.mylittlefoodquiz.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import com.pierrebenayoun.activityreport.ui.theme.DeepPurple400
+import com.pierrebenayoun.activityreport.ui.theme.DeepPurple800
 import com.pierrebenayoun.activityreport.ui.theme.Grey300
 import com.pierrebenayoun.activityreport.ui.theme.Grey800
 
@@ -16,6 +18,12 @@ class ComposeColors {
 
         @Composable
         fun textOnDarkBackground() = Grey300
+
+        @Composable
+        fun selectedChoiceColor() = getColor(
+            light = DeepPurple400,
+            dark = DeepPurple800
+        )
 
 
         @Composable

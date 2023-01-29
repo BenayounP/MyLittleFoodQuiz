@@ -11,11 +11,14 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.pierrebenayoun.activityreport.ui.theme.transparent
-import eu.benayoun.mylittlefoodquiz.data.model.business.questions.FoodQuestion
+import eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.model.SelectableFoodQuestion
 import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeDimensions.padding2
 
 @Composable
-fun QuestionsListComposable(foodQuestionsList: List<FoodQuestion>, modifier: Modifier = Modifier) {
+fun FoodQuestionsListComposable(
+    modifier: Modifier = Modifier,
+    foodQuestionsList: List<SelectableFoodQuestion>
+) {
     val lazyState = rememberLazyListState()
     Column(
         modifier = Modifier
@@ -28,7 +31,7 @@ fun QuestionsListComposable(foodQuestionsList: List<FoodQuestion>, modifier: Mod
             verticalArrangement = Arrangement.spacedBy(padding2)
         ) {
             items(foodQuestionsList) { foodQuestion ->
-                FoodQuestionComposable(foodQuestion = foodQuestion)
+                FoodQuestionComposable(selectableFoodQuestion = foodQuestion)
             }
         }
     }

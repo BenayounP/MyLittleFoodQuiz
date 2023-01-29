@@ -19,15 +19,15 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(@QuestionsRepositoryProvider private val questionsRepository: QuestionsRepository) :
     ViewModel(), DefaultLifecycleObserver {
-    private val _questionListState = MutableStateFlow<List<FoodQuestion>>(listOf())
-    val questionListState: StateFlow<List<FoodQuestion>> = _questionListState.asStateFlow()
+    private val _questionListState = MutableStateFlow<List<SelectableFoodQuestion>>(listOf())
+    val questionListState: StateFlow<List<SelectableFoodQuestion>> =
+        _questionListState.asStateFlow()
 
     init {
         getFlow()
     }
 
-    fun updateFoodQuestions() = questionsRepository.updateFoodQuestions()
-
+    private fun updateFoodQuestions() = questionsRepository.updateFoodQuestions()
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onResume(owner)
@@ -40,10 +40,9 @@ class HomeViewModel @Inject constructor(@QuestionsRepositoryProvider private val
         viewModelScope.launch {
             questionsRepository.getFoodQuestionListFlow().flowOn(Dispatchers.IO)
                 .collect { foodQuestionList: List<FoodQuestion> ->
-                    _questionListState.value = foodQuestionList
+                    _questionListState.value =
+                        foodQuestionList.map { it -> SelectableFoodQuestion(it) }
                 }
         }
     }
-
-
 }
