@@ -2,6 +2,7 @@
 * Add/check preview for composables
 * Add icon for app
 * Add tests
+  * test darkColor
   * on SelectionableFoodQuestion
 * Change some classes model name
 

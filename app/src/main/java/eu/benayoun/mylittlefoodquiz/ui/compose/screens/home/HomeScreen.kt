@@ -36,7 +36,10 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltVie
     ) {
         viewModel.ObserveLifecycle(LocalLifecycleOwner.current.lifecycle)
         val foodQuestionList = viewModel.questionListState.collectAsState().value
-        FoodQuestionsListComposable(foodQuestionsList = foodQuestionList)
+        FoodQuestionsListComposable(
+            foodQuestionsList = foodQuestionList,
+            userHasRespondedAllQuestions = viewModel.userHasRespondedAllQuestions.value
+        )
     }
 }
 //used to observe lifecycle like onResume and so on

@@ -1,5 +1,7 @@
 package eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.model
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
@@ -23,15 +25,19 @@ class HomeViewModel @Inject constructor(@QuestionsRepositoryProvider private val
     val questionListState: StateFlow<List<SelectableFoodQuestion>> =
         _questionListState.asStateFlow()
 
+    val userHasRespondedAllQuestions: MutableState<Boolean> = mutableStateOf(false)
+
     init {
         getFlow()
     }
 
-    private fun updateFoodQuestions() = questionsRepository.updateFoodQuestions()
-
     override fun onCreate(owner: LifecycleOwner) {
         super.onResume(owner)
-        updateFoodQuestions()
+        questionsRepository.updateFoodQuestions()
+    }
+
+    fun onSelection() {
+        userHasRespondedAllQuestions.value = _questionListState.value.all { it.userHasResponded }
     }
 
     // INTERNAL COOKING
@@ -41,7 +47,12 @@ class HomeViewModel @Inject constructor(@QuestionsRepositoryProvider private val
             questionsRepository.getFoodQuestionListFlow().flowOn(Dispatchers.IO)
                 .collect { foodQuestionList: List<FoodQuestion> ->
                     _questionListState.value =
-                        foodQuestionList.map { it -> SelectableFoodQuestion(it) }
+                        foodQuestionList.map { it ->
+                            SelectableFoodQuestion(
+                                it,
+                                onSelectionCallBack = ::onSelection
+                            )
+                        }
                 }
         }
     }

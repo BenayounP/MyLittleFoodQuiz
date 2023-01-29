@@ -2,7 +2,10 @@ package eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.model
 
 import eu.benayoun.mylittlefoodquiz.data.model.business.questions.FoodQuestion
 
-class SelectableFoodQuestion(foodQuestion: FoodQuestion) {
+class SelectableFoodQuestion(
+    foodQuestion: FoodQuestion,
+    private val onSelectionCallBack: () -> Unit
+) {
     val id: Int = foodQuestion.id
     val multiple: Boolean = foodQuestion.multiple
     val name: String = foodQuestion.name
@@ -10,6 +13,8 @@ class SelectableFoodQuestion(foodQuestion: FoodQuestion) {
     val question: String = foodQuestion.question
     var choices: List<SelectableFoodChoice> =
         foodQuestion.choices.map { it -> SelectableFoodChoice(it) }
+
+    var userHasResponded = false
 
     fun onSelection(choiceId: Int) {
         val selectableFoodChoiceIsNotSelected =
@@ -25,7 +30,7 @@ class SelectableFoodQuestion(foodQuestion: FoodQuestion) {
                 }
             }
         }
+        userHasResponded = choices.any { it.isSelected() }
+        onSelectionCallBack()
     }
-
-
 }
