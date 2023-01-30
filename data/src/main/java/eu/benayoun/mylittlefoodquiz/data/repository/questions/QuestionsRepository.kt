@@ -1,4 +1,4 @@
-package eu.benayoun.mylittlefoodquiz.data.repository
+package eu.benayoun.mylittlefoodquiz.data.repository.questions
 
 import eu.benayoun.mylittlefoodquiz.data.model.business.questions.FoodQuestion
 import kotlinx.coroutines.flow.Flow

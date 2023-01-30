@@ -1,6 +1,7 @@
 package eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.model
 
 import eu.benayoun.mylittlefoodquiz.data.model.business.questions.FoodQuestion
+import eu.benayoun.mylittlefoodquiz.data.model.business.response.FoodResponse
 
 class SelectableFoodQuestion(
     foodQuestion: FoodQuestion,
@@ -32,5 +33,9 @@ class SelectableFoodQuestion(
         }
         userHasResponded = choices.any { it.isSelected() }
         onSelectionCallBack()
+    }
+
+    fun toFoodResponse(): FoodResponse {
+        return FoodResponse(choices.filter { it.isSelected() }.map { it.choice.id }, id)
     }
 }

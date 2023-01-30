@@ -1,13 +1,9 @@
 package eu.benayoun.mylittlefoodquiz.data.source.network
 
 import android.content.Context
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import eu.benayoun.mylittlefoodquiz.data.model.API.NetworkResponse
-import eu.benayoun.mylittlefoodquiz.data.model.business.questions.FoodQuestion
 import java.io.IOException
 import java.io.InputStream
-import java.lang.reflect.Type
 
 
 // some inspiration from this site:
@@ -15,11 +11,9 @@ import java.lang.reflect.Type
 
 class FakeFromFileFoodQuestionsSource(val applicationContext: Context) :
     FoodQuestionsNetworkSource {
-    override suspend fun getRawFoodQuestionsList(): NetworkResponse {
+    override suspend fun getFoodQuestionsJson(): NetworkResponse {
         val jsonString = getJsonFromAssets("fake_questions_list.json")
-        val QuestionListType: Type = object : TypeToken<ArrayList<FoodQuestion?>?>() {}.type
-        val FoodQuestionlist = Gson().fromJson<List<FoodQuestion>>(jsonString, QuestionListType)
-        return NetworkResponse.Success(FoodQuestionlist)
+        return NetworkResponse.Success(jsonString)
     }
 
     fun getJsonFromAssets(fileName: String): String {
@@ -36,5 +30,9 @@ class FakeFromFileFoodQuestionsSource(val applicationContext: Context) :
             return ""
         }
         return jsonString
+    }
+
+    override suspend fun postFoodResponseJson(json: String) {
+        // nothing to do...yet
     }
 }

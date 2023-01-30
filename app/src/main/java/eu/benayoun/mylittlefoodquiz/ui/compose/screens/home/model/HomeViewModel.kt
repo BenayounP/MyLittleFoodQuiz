@@ -8,8 +8,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.benayoun.mylittlefoodquiz.data.di.QuestionsRepositoryProvider
+import eu.benayoun.mylittlefoodquiz.data.di.ResponseRepositoryProvider
 import eu.benayoun.mylittlefoodquiz.data.model.business.questions.FoodQuestion
-import eu.benayoun.mylittlefoodquiz.data.repository.QuestionsRepository
+import eu.benayoun.mylittlefoodquiz.data.model.business.response.FoodResponse
+import eu.benayoun.mylittlefoodquiz.data.repository.questions.QuestionsRepository
+import eu.benayoun.mylittlefoodquiz.data.repository.responses.ResponsesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,13 +22,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(@QuestionsRepositoryProvider private val questionsRepository: QuestionsRepository) :
+class HomeViewModel @Inject constructor(
+    @QuestionsRepositoryProvider private val questionsRepository: QuestionsRepository,
+    @ResponseRepositoryProvider private val responsesRepository: ResponsesRepository
+) :
     ViewModel(), DefaultLifecycleObserver {
     private val _questionListState = MutableStateFlow<List<SelectableFoodQuestion>>(listOf())
     val questionListState: StateFlow<List<SelectableFoodQuestion>> =
         _questionListState.asStateFlow()
 
-    val userHasRespondedAllQuestions: MutableState<Boolean> = mutableStateOf(false)
+    val userHasRespondedAllQuestionsState: MutableState<Boolean> = mutableStateOf(false)
 
     init {
         getFlow()
@@ -37,7 +43,12 @@ class HomeViewModel @Inject constructor(@QuestionsRepositoryProvider private val
     }
 
     fun onSelection() {
-        userHasRespondedAllQuestions.value = _questionListState.value.all { it.userHasResponded }
+        userHasRespondedAllQuestionsState.value =
+            _questionListState.value.all { it.userHasResponded }
+    }
+
+    fun sendResponses() {
+        responsesRepository.sendFoodResponses(getResponses())
     }
 
     // INTERNAL COOKING
@@ -56,4 +67,7 @@ class HomeViewModel @Inject constructor(@QuestionsRepositoryProvider private val
                 }
         }
     }
+
+    private fun getResponses(): List<FoodResponse> =
+        _questionListState.value.map { it.toFoodResponse() }
 }
