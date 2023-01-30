@@ -36,6 +36,6 @@ class SelectableFoodQuestion(
     }
 
     fun toFoodResponse(): FoodResponse {
-        return FoodResponse(choices.filter { it.isSelected() }.map { it.choice.id }, id)
+        return FoodResponse(id, choices.filter { it.isSelected() }.map { it.choice.id })
     }
 }

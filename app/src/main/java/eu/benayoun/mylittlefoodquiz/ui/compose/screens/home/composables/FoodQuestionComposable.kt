@@ -8,12 +8,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.pierrebenayoun.activityreport.ui.theme.Blue500
 import com.pierrebenayoun.activityreport.ui.theme.Blue600
 import com.pierrebenayoun.activityreport.ui.theme.Blue800
 import com.pierrebenayoun.activityreport.ui.theme.Blue900
+import eu.benayoun.mylittlefoodquiz.R
 import eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.model.SelectableFoodQuestion
 import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeColors
 import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeDimensions.padding1
@@ -64,7 +66,7 @@ fun FoodQuestionComposable(
         )
         if (selectableFoodQuestion.multiple) {
             Text(
-                text = "Plusieurs réponses possibles !",
+                text = stringResource(R.string.multiple_choices_title),
                 modifier = Modifier
                     .padding(padding3)
                     .fillMaxWidth(),

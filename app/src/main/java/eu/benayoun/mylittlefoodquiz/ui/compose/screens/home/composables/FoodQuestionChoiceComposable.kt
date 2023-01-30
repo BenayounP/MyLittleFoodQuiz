@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
@@ -19,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.pierrebenayoun.activityreport.ui.theme.Green600
 import com.pierrebenayoun.activityreport.ui.theme.Green700
 import com.pierrebenayoun.activityreport.ui.theme.Grey300
+import eu.benayoun.mylittlefoodquiz.R
 import eu.benayoun.mylittlefoodquiz.data.model.business.questions.Choice
 import eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.model.SelectableFoodChoice
 import eu.benayoun.mylittlefoodquiz.ui.theme.BackgroundAndContentColor
@@ -78,7 +80,7 @@ fun FoodQuestionChoiceComposable(
                 modifier = Modifier
                     .padding(horizontal = padding3)
                     .clickable { dialogString.value = descriptionString },
-                text = "+",
+                text = stringResource(R.string.more_information),
                 color = informationColor,
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold
@@ -87,7 +89,10 @@ fun FoodQuestionChoiceComposable(
             //dialog
             if (dialogString.value != "") {
                 SimpleDialogComposable(
-                    titleString = "Plus de détails à propos de : \" ${selectableFoodChoice.choice.name}\"",
+                    titleString = stringResource(
+                        id = R.string.dialog_description_title,
+                        selectableFoodChoice.choice.name
+                    ),
                     TextString = dialogString.value,
                     onClose = { dialogString.value = "" })
             }

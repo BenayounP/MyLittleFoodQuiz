@@ -2,12 +2,16 @@
 
 A tiny quiz about food (with JSON) with dark and light theme.
 
-# Some Thoughts
+# Focus
 
 I focused primarily on :
 
 * The use of the latest tools and best practices from Google
 * An architecture allowing an easy evolution of the software
+
+# Some thought
+
+* due to json file language, the app is in french only
 
 # Tools
 

@@ -8,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
@@ -15,6 +16,7 @@ import com.pierrebenayoun.activityreport.ui.theme.Grey100
 import com.pierrebenayoun.activityreport.ui.theme.Grey400
 import com.pierrebenayoun.activityreport.ui.theme.Grey500
 import com.pierrebenayoun.activityreport.ui.theme.Grey900
+import eu.benayoun.mylittlefoodquiz.R
 import eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.composables.FoodQuestionsListComposable
 import eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.composables.SendResponsesComposable
 import eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.composables.SimpleDialogComposable
@@ -60,7 +62,7 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltVie
     val jsonString = viewModel.jsonResponseState.collectAsState().value
     if (jsonString != "") {
         SimpleDialogComposable(
-            titleString = "Le Json de la réponse",
+            titleString = stringResource(R.string.dialog_json_title),
             TextString = jsonString,
             onClose = { viewModel.resetResponse() })
     }

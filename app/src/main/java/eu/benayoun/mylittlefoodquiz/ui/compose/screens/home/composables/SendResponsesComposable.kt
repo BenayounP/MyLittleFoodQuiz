@@ -9,9 +9,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.pierrebenayoun.activityreport.ui.theme.Grey500
 import com.pierrebenayoun.activityreport.ui.theme.Grey700
+import eu.benayoun.mylittlefoodquiz.R
 import eu.benayoun.mylittlefoodquiz.ui.theme.BackgroundAndContentColor
 import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeColors
 import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeDimensions
@@ -52,7 +54,7 @@ fun SendResponsesComposable(
         .clickable(enabled = userHasRespondedAllQuestions) { sendResponses() }) {
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = "Envoyer les réponses",
+            text = stringResource(R.string.send_responses),
             color = selectedBackgroundAndContentColor.content,
             style = MaterialTheme.typography.titleLarge,
             textAlign = TextAlign.Center
