@@ -2,16 +2,22 @@ package eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import com.pierrebenayoun.activityreport.ui.theme.Green600
+import com.pierrebenayoun.activityreport.ui.theme.Green700
 import com.pierrebenayoun.activityreport.ui.theme.Grey300
 import eu.benayoun.mylittlefoodquiz.data.model.business.questions.Choice
 import eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.model.SelectableFoodChoice
@@ -21,6 +27,7 @@ import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeColors.Companion.selectedCho
 import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeColors.Companion.textOnDarkBackground
 import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeColors.Companion.textOnLightBackground
 import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeDimensions.padding2
+import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeDimensions.padding3
 import eu.benayoun.mylittlefoodquiz.ui.theme.MyLittleFoodQuizTheme
 
 @Composable
@@ -29,7 +36,6 @@ fun FoodQuestionChoiceComposable(
     selectableFoodChoice: SelectableFoodChoice,
     onSelection: (choiceId: Int) -> Unit
 ) {
-
     val unselectedBackgroundAndContentColor = BackgroundAndContentColor(
         ComposeColors.getColor(
             light = Grey300,
@@ -45,24 +51,51 @@ fun FoodQuestionChoiceComposable(
 
     val backgroundAndContentColor = if (selectableFoodChoice.isSelected.value)
         selectedBackgroundAndContentColor else unselectedBackgroundAndContentColor
-
-    Column(
+    Row(
         modifier = modifier
             .background(
                 color = backgroundAndContentColor.background,
                 shape = RoundedCornerShape(padding2)
             )
             .fillMaxWidth()
-            .clickable { onSelection(selectableFoodChoice.choice.id) }
     ) {
         Text(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(start = padding3)
+                .weight(1f)
+                .clickable { onSelection(selectableFoodChoice.choice.id) },
             text = selectableFoodChoice.choice.name,
             color = backgroundAndContentColor.content,
             style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Justify
         )
+        val descriptionString = selectableFoodChoice.choice.description
+        if (descriptionString != null) {
+
+            val informationColor = ComposeColors.getColor(light = Green600, dark = Green700)
+            val dialogString = remember { mutableStateOf("") }
+            Text(
+                modifier = Modifier
+                    .padding(horizontal = padding3)
+                    .clickable { dialogString.value = descriptionString },
+                text = "+",
+                color = informationColor,
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Bold
+            )
+
+            //dialog
+            if (dialogString.value != "") {
+                SimpleDialogComposable(
+                    titleString = "Plus de détails à propos de : \" ${selectableFoodChoice.choice.name}\"",
+                    TextString = dialogString.value,
+                    onClose = { dialogString.value = "" })
+            }
+        }
+
     }
+
+
 }
 
 val previewFoodChoice = Choice(
