@@ -30,4 +30,7 @@ class DefaultResponsesRepository(
         }
     }
 
+    override fun resetFoodResponses() {
+        _foodResponseJsonFlow.value = ""
+    }
 }

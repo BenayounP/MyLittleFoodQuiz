@@ -16,4 +16,6 @@ interface ResponsesRepository {
      */
 
     fun sendFoodResponses(foodResponsesList: List<FoodResponse>)
+
+    fun resetFoodResponses()
 }

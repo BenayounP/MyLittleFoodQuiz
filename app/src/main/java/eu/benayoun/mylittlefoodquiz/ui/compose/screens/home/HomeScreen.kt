@@ -17,7 +17,7 @@ import com.pierrebenayoun.activityreport.ui.theme.Grey500
 import com.pierrebenayoun.activityreport.ui.theme.Grey900
 import eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.composables.FoodQuestionsListComposable
 import eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.composables.SendResponsesComposable
-import eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.model.HomeViewModel
+import eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.composables.SimpleDialogComposable
 import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeColors
 import eu.benayoun.mylittlefoodquiz.ui.theme.ComposeDimensions.padding2
 
@@ -37,23 +37,32 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltVie
             .fillMaxSize()
             .background(brush = backgroundBrush),
     ) {
+        Spacer(modifier = Modifier.height(padding2))
         viewModel.ObserveLifecycle(LocalLifecycleOwner.current.lifecycle)
         val foodQuestionList = viewModel.questionListState.collectAsState().value
 
         FoodQuestionsListComposable(
             modifier = Modifier
                 .weight(1f)
-                .padding(padding2),
+                .padding(horizontal = padding2),
             foodQuestionsList = foodQuestionList
         )
-
         Spacer(modifier = Modifier.height(padding2))
         SendResponsesComposable(
-            modifier = Modifier.padding(padding2),
+            modifier = Modifier.padding(horizontal = padding2),
             userHasRespondedAllQuestions = viewModel.userHasRespondedAllQuestionsState.value,
             sendResponses = viewModel::sendResponses
         )
         Spacer(modifier = Modifier.height(padding2))
+    }
+
+    // json response dialog
+    val jsonString = viewModel.jsonResponseState.collectAsState().value
+    if (jsonString != "") {
+        SimpleDialogComposable(
+            titleString = "Le Json de la réponse",
+            TextString = jsonString,
+            onClose = { viewModel.resetResponse() })
     }
 }
 //used to observe lifecycle like onResume and so on

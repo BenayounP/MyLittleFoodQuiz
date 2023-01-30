@@ -1,4 +1,4 @@
-package eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.model
+package eu.benayoun.mylittlefoodquiz.ui.compose.screens.home
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -13,6 +13,7 @@ import eu.benayoun.mylittlefoodquiz.data.model.business.questions.FoodQuestion
 import eu.benayoun.mylittlefoodquiz.data.model.business.response.FoodResponse
 import eu.benayoun.mylittlefoodquiz.data.repository.questions.QuestionsRepository
 import eu.benayoun.mylittlefoodquiz.data.repository.responses.ResponsesRepository
+import eu.benayoun.mylittlefoodquiz.ui.compose.screens.home.model.SelectableFoodQuestion
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -27,9 +28,15 @@ class HomeViewModel @Inject constructor(
     @ResponseRepositoryProvider private val responsesRepository: ResponsesRepository
 ) :
     ViewModel(), DefaultLifecycleObserver {
+    // question list
     private val _questionListState = MutableStateFlow<List<SelectableFoodQuestion>>(listOf())
     val questionListState: StateFlow<List<SelectableFoodQuestion>> =
         _questionListState.asStateFlow()
+
+    // response json string
+    private val _jsonResponseState = MutableStateFlow<String>("")
+    val jsonResponseState: StateFlow<String> =
+        _jsonResponseState.asStateFlow()
 
     val userHasRespondedAllQuestionsState: MutableState<Boolean> = mutableStateOf(false)
 
@@ -51,9 +58,14 @@ class HomeViewModel @Inject constructor(
         responsesRepository.sendFoodResponses(getResponses())
     }
 
+    fun resetResponse() {
+        responsesRepository.resetFoodResponses()
+    }
+
     // INTERNAL COOKING
 
     private fun getFlow() {
+        // questions
         viewModelScope.launch {
             questionsRepository.getFoodQuestionListFlow().flowOn(Dispatchers.IO)
                 .collect { foodQuestionList: List<FoodQuestion> ->
@@ -66,7 +78,15 @@ class HomeViewModel @Inject constructor(
                         }
                 }
         }
+        // json Response String
+        viewModelScope.launch {
+            responsesRepository.getFoodResponsesJsonFlow().flowOn(Dispatchers.IO)
+                .collect { jsonString: String ->
+                    _jsonResponseState.value = jsonString
+                }
+        }
     }
+
 
     private fun getResponses(): List<FoodResponse> =
         _questionListState.value.map { it.toFoodResponse() }
