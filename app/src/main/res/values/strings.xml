@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MyLittleFoodQuiz</string>
+    <string name="more_information">\?\?</string>
+    <string name="multiple_choices_title">Plusieurs réponses possibles !</string>
+    <string name="send_responses">Envoyer les réponses</string>
+    <string name="dialog_json_title">Le Json de la réponse</string>
+    <string name="dialog_description_title">Plus de détails à propos de :\n\%1$s\</string>
+</resources>
