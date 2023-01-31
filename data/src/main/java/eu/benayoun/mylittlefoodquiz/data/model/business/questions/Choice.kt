@@ -5,5 +5,10 @@ data class Choice(
     val id: Int,
     val name: String,
     val order: Int
-)
+) {
+    // used for tests
+    fun toClassConstructorString(): String {
+        return "Choice(\"$description\",$id,\"$name\",$order)"
+    }
+}
 

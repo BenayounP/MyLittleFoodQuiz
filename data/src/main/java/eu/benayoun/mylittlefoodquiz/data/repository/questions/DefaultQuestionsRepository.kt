@@ -35,6 +35,20 @@ class DefaultQuestionsRepository(
                         object : TypeToken<ArrayList<FoodQuestion?>?>() {}.type
                     val unsortedFoodQuestionsList =
                         gson.fromJson<List<FoodQuestion>>(networkResponse.json, QuestionListType)
+
+                    /**
+                     *  BACKSTAGE : How I generate data to test list sorting !
+                     *  See local test of this class to understand ;)
+                    val sb = StringBuilder("arrayListOf(")
+                    unsortedFoodQuestionsList.mapIndexed{index, foodQuestion ->
+                    sb.append(foodQuestion.toClassConstructorString())
+                    if (index < unsortedFoodQuestionsList.size - 1) {
+                    sb.append(",\n")
+                    }
+                    }
+                    sb.append(")")
+                    Log.d("TMP_DEBUG","***** LIST:\n $sb")
+                     **/
                     val sortedQuestionList = getSortedListById(unsortedFoodQuestionsList)
                     _foodQuestionListFlow.value = sortedQuestionList
                 }
@@ -42,10 +56,10 @@ class DefaultQuestionsRepository(
         }
     }
 
-    private fun getSortedListById(rawQuestionList: List<FoodQuestion>): List<FoodQuestion> {
-        rawQuestionList.forEach { rawFoodQuestion: FoodQuestion ->
+    fun getSortedListById(unsortedQuestionList: List<FoodQuestion>): List<FoodQuestion> {
+        unsortedQuestionList.forEach { rawFoodQuestion: FoodQuestion ->
             rawFoodQuestion.choices = rawFoodQuestion.choices.sortedBy { it.order }
         }
-        return rawQuestionList.sortedBy { it.order }
+        return unsortedQuestionList.sortedBy { it.order }
     }
 }

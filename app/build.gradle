@@ -84,6 +84,13 @@ dependencies {
 
     // ** TESTS **
 
+    // Local
+    testImplementation "junit:junit:4.13.2"
+    testImplementation "com.google.truth:truth:$truth_version"
+    testImplementation "androidx.test:core:$androidx_test_version"
+    testImplementation "androidx.test:runner:1.5.2"
+    testImplementation 'org.robolectric:robolectric:4.8'
+
     // INSTRUMENTED
     //global
     androidTestImplementation "androidx.test:core:$androidx_test_version"

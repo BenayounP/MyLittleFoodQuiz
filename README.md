@@ -9,9 +9,9 @@ I focused primarily on :
 * The use of the latest tools and best practices from Google
 * An architecture allowing an easy evolution of the software
 
-# Some thought
+# About
 
-* due to json file language, the app is in french only
+* Due to json file language, the app is in french only
 
 # Tools
 
@@ -40,7 +40,14 @@ I focused primarily on :
 * Simulate device for local tests: [Robolectric](http://robolectric.org/)
 * Assert tooling: [Google Truth](https://github.com/google/truth)
 
+# About Tests
+
+It's more a technical demonstration that can be greatly improved.
+Better tests, especially UI ones, can be seen in my personal project:
+https://github.com/BenayounP/AndroidMovieDataBase
+
 # Possible improvements
 
 * Simulate error responses
-* Simulate network response when posting  
+* Simulate network response when posting
+* Set to `internal` all classes where possible
